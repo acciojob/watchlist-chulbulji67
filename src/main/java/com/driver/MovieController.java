@@ -22,7 +22,7 @@ public class MovieController {
 //    Controller Name - addMovie
 
     @PostMapping("/add-movie")
-    ResponseEntity addMovie(@RequestBody Movie movie){
+    public ResponseEntity addMovie(@RequestBody Movie movie){
         movieService.addMovie(movie);
         return new ResponseEntity("Success", HttpStatus.OK);
     }
@@ -34,7 +34,7 @@ public class MovieController {
 //    Controller Name - addDirector
 
     @PostMapping("/add-director")
-    ResponseEntity addDirector(@RequestBody Director director){
+    public ResponseEntity addDirector(@RequestBody Director director){
         movieService.addDirector(director);
         return new ResponseEntity("Success", HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class MovieController {
 //    Controller Name - addMovieDirectorPair
 
     @PutMapping("/add-movie-director-pair")
-    ResponseEntity addMovieDirectorPair(@RequestParam String movieName, @RequestParam String directorName){
+    public ResponseEntity addMovieDirectorPair(@RequestParam String movieName, @RequestParam String directorName){
         System.out.println("Movie Stirng name is "+movieName);
         System.out.println("Deirctor Stirng name is "+directorName);
     Movie movie = movieService.getMovieByName(movieName);
@@ -64,7 +64,7 @@ public class MovieController {
 //    Controller Name - getMovieByName
 
     @GetMapping("/get-movie-by-name/{name}")
-    ResponseEntity getMovieByName(@PathVariable String name){
+    public ResponseEntity getMovieByName(@PathVariable String name){
 
         Movie movie = movieService.getMovieByName(name);
         if(movie.getName() == null)
@@ -78,7 +78,7 @@ public class MovieController {
 //    Controller Name - getDirectorByName
 
     @GetMapping("get-director-by-name/{name}")
-    ResponseEntity getDirectorByName(@PathVariable String name){
+    public ResponseEntity getDirectorByName(@PathVariable String name){
        Director director = movieService.getDirectorByName(name);
        if(director.getName() == null)
            return new ResponseEntity("No Director Available", HttpStatus.BAD_REQUEST);
@@ -92,7 +92,7 @@ public class MovieController {
 //    Controller Name - getMoviesByDirectorName
 
     @GetMapping("/get-movies-by-director-name/{director}")
-    ResponseEntity getMoviesByDirectorName(@PathVariable String director){
+    public ResponseEntity getMoviesByDirectorName(@PathVariable String director){
         return new ResponseEntity(movieService.getMoviesByDirectorName(director), HttpStatus.OK);
     }
 
@@ -102,7 +102,7 @@ public class MovieController {
 //    Controller Name - findAllMovies
 
      @GetMapping("/get-all-movies")
-     ResponseEntity findAllMovies(){
+     public ResponseEntity findAllMovies(){
         return new ResponseEntity<>(movieService.findAllMovies(), HttpStatus.OK);
      }
 
@@ -111,7 +111,7 @@ public class MovieController {
 //    Return success message wrapped in a ResponseEntity object
 //    Controller Name - deleteDirectorByName
 
-      @DeleteMapping("/delete-director-by-name")
+    public @DeleteMapping("/delete-director-by-name")
       ResponseEntity deleteDirectorByName(@RequestParam("directorName") String directorName){
         movieService.deleteDirectorByName(directorName);
             return new ResponseEntity("Success", HttpStatus.OK);
@@ -125,7 +125,7 @@ public class MovieController {
 
 
         @DeleteMapping("/delete-all-directors")
-        ResponseEntity deleteAllDirectors(){
+        public ResponseEntity deleteAllDirectors(){
             movieService.deleteAllDirectors();
             return new ResponseEntity("Success", HttpStatus.OK);
         }
